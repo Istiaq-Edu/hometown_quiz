@@ -1,7 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:hometown_quiz/pages/category.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  // Simple variable to store user name
+  String userName = 'User'; // Default name
+
+  @override
+  void initState() {
+    super.initState();
+    // Get user name when page loads
+    getUserName();
+  }
+
+  // Simple function to get user name from Supabase
+  Future<void> getUserName() async {
+    try {
+      // Get current user ID
+      String? userId = Supabase.instance.client.auth.currentUser?.id;
+
+      if (userId != null) {
+        // Get user data from database
+        final response = await Supabase.instance.client
+            .from('users')
+            .select('name')
+            .eq('id', userId)
+            .single();
+
+        // Update user name
+        setState(() {
+          userName = response['name'] ?? 'User';
+        });
+      }
+    } catch (e) {
+      // If error, keep default name
+      print('Error getting user name: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,16 +118,16 @@ class HomePage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
-                                'Hi, Ayesha! ',
-                                style: TextStyle(
+                              Text(
+                                'Hi, $userName! ',
+                                style: const TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xFF221710),
                                 ),
                               ),
                               // Waving hand emoji
-                              Text('👋', style: TextStyle(fontSize: 28)),
+                              const Text('👋', style: TextStyle(fontSize: 28)),
                             ],
                           ),
                           const SizedBox(height: 4),
@@ -167,7 +209,13 @@ class HomePage extends StatelessWidget {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    // TODO: Navigate to categories page later
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CategoryPage(),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     height: 100,
