@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hometown_quiz/pages/login.dart';
 import 'package:hometown_quiz/pages/home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   // Initialize Flutter
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load environment variables from .env file
-  await dotenv.load(fileName: ".env");
-
-  // Initialize Supabase using environment variables
+  // Initialize Supabase with credentials
+  // Note: The anon key is safe to include in code - it's designed for client-side use
+  // Your data is protected by Row Level Security (RLS) policies in Supabase
   await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+    url: 'https://uurccpzssdfnplxllbvi.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1cmNjcHpzc2RmbnBseGxsYnZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1MDkwMjQsImV4cCI6MjA3NjA4NTAyNH0.t4_gavQ3QtdpkVD6Ch2g4izBATti0U9x3nptdTBF3z0',
   );
 
   runApp(const MyApp());

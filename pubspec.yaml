@@ -35,7 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   supabase_flutter: ^2.9.1
-  flutter_dotenv: ^5.2.1
   
   # Profile page dependencies
   image_picker: ^1.0.0
@@ -65,9 +64,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # Add .env file and images
+  # Add images and logo
   assets:
-    - .env
     - lib/images/
     - lib/icon/logo.png
 

@@ -15,6 +15,9 @@ migrate_working_dir/
 # Environment variables
 .env
 
+# Local configuration with credentials (DO NOT COMMIT)
+lib/config.local.dart
+
 # IntelliJ related
 *.iml
 *.ipr
