@@ -1,30 +1,26 @@
-// This is a basic Flutter widget test.
+// Basic widget test for Hometown Quiz app
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Note: Full widget tests requiring Supabase are not included here
+// as they require environment setup. The property-based tests in
+// other test files cover the core functionality.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:hometown_quiz/main.dart';
+import 'package:hometown_quiz/pages/home.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Hometown Quiz App Tests', () {
+    test('App constants are properly defined', () {
+      // Verify that the categories list is properly defined
+      expect(categories.length, equals(3));
+      expect(validCategoryNames.length, equals(3));
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('Category data structure is valid', () {
+      for (final category in categories) {
+        expect(category.name.isNotEmpty, isTrue);
+        expect(category.description.isNotEmpty, isTrue);
+        expect(category.imagePath.isNotEmpty, isTrue);
+      }
+    });
   });
 }
